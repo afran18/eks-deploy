@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+
+target/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+
+.DS_Store
+Thumbs.db
+
+.env*
+*/.env*
