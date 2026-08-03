@@ -7,6 +7,7 @@ import com.afran.auth_service.entity.User;
 import com.afran.auth_service.exception.InvalidCredentialsException;
 import com.afran.auth_service.exception.UserAlreadyExistsException;
 import com.afran.auth_service.repository.UserRepository;
+import com.afran.auth_service.security.JwtService;
 import com.afran.auth_service.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
     public AuthResponse register(RegisterRequest request) {
@@ -41,12 +43,12 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
-        // TODO Generate JWT
+
 
         return new AuthResponse(
                 savedUser.getUsername(),
                 savedUser.getEmail(),
-                "JWT CONFIG SOON",
+                jwtService.generateToken(savedUser.getUsername()), // JWT Token generated
                 LocalDateTime.now()
         );
     }
@@ -61,12 +63,12 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidCredentialsException("Invalid username or password");
         }
 
-        // TOD Generate JWT
+        // TODO Generate JWT
 
         return new AuthResponse(
                 user.getUsername(),
                 user.getEmail(),
-                "JWT_CONFIG",
+                jwtService.generateToken(user.getUsername()),
                 LocalDateTime.now()
         );
     }
