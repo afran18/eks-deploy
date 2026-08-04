@@ -1,3 +1,11 @@
+server:
+  port: 8083
 spring:
   application:
     name: product-service
+  config:
+    import:
+      - optional:file:E:/EKS-Deploy/eks-configs/application-${spring.profiles.active}.yml
+      - optional:file:E:/EKS-Deploy/eks-configs/product-service.yml
+      - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
+      - optional:file:E:/EKS-Deploy/eks-secrets/product-service/.env.${spring.profiles.active}[.properties]

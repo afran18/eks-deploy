@@ -10,6 +10,8 @@ import com.afran.auth_service.repository.UserRepository;
 import com.afran.auth_service.security.JwtService;
 import com.afran.auth_service.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public AuthResponse register(RegisterRequest request) {
@@ -55,13 +58,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(LoginRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.username(),
+                        request.password()
+                )
+        );
         User user = userRepository.findByUsername(request.username())
                 .orElseThrow(() ->
                         new InvalidCredentialsException("Invalid username or password"));
 
-        if(!passwordEncoder.matches(request.password(), user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid username or password");
-        }
+//        if(!passwordEncoder.matches(request.password(), user.getPassword())) {
+//            throw new InvalidCredentialsException("Invalid username or password");
+//        }
 
         // TODO Generate JWT
 
