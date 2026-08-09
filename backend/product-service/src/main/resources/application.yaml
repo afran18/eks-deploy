@@ -9,3 +9,8 @@ spring:
       - optional:file:E:/EKS-Deploy/eks-configs/product-service.yml
       - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
       - optional:file:E:/EKS-Deploy/eks-secrets/product-service/.env.${spring.profiles.active}[.properties]
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway

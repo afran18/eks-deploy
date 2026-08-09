@@ -1,3 +1,16 @@
+server:
+  port: 8084
 spring:
   application:
     name: order-service
+  config:
+    import:
+      - optional:file:E:/EKS-Deploy/eks-configs/application-${spring.profiles.active}.yml
+      - optional:file:E:/EKS-Deploy/eks-configs/order-service.yml
+      - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
+      - optional:file:E:/EKS-Deploy/eks-secrets/order-service/.env.${spring.profiles.active}[.properties]
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
