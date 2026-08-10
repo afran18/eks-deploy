@@ -5,10 +5,10 @@ spring:
     name: product-service
   config:
     import:
-      - optional:file:E:/EKS-Deploy/eks-configs/application-${spring.profiles.active}.yml
-      - optional:file:E:/EKS-Deploy/eks-configs/product-service.yml
-      - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
-      - optional:file:E:/EKS-Deploy/eks-secrets/product-service/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_CONFIG_PATH}/application-${spring.profiles.active}.yml
+      - optional:file:${APP_CONFIG_PATH}/product-service.yml
+      - optional:file:${APP_SECRETS_PATH}/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_SECRETS_PATH}/product-service/.env.${spring.profiles.active}[.properties]
 management:
   endpoints:
     web:

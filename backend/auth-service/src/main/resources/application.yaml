@@ -7,7 +7,7 @@ spring:
 
   config:
     import:
-      - optional:file:E:/EKS-Deploy/eks-configs/application-${spring.profiles.active}.yml
-      - optional:file:E:/EKS-Deploy/eks-configs/auth-service.yml
-      - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
-      - optional:file:E:/EKS-Deploy/eks-secrets/auth-service/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_CONFIG_PATH}/application-${spring.profiles.active}.yml
+      - optional:file:${APP_CONFIG_PATH}/auth-service.yml
+      - optional:file:${APP_SECRETS_PATH}/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_SECRETS_PATH}/auth-service/.env.${spring.profiles.active}[.properties]
