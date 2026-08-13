@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service
+  namespace: microservices
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: product-service
+
+  template:
+    metadata:
+      labels:
+        app: product-service
+
+    spec:
+      containers:
+        - name: product-service
+          image: product-service:1.0
+
+          ports:
+            - containerPort: 8083
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+
+            - name: APP_CONFIG_PATH
+              value: /app/config
+            - name: APP_SECRETS_PATH
+              value: /app/secrets
+
+          volumeMounts:
+            - name: product-config
+              mountPath: /app/config
+
+            - name: product-secret
+              mountPath: /app/secrets
+              readOnly: true
+      volumes:
+        - name: product-config
+          configMap:
+            name: product-config
+
+        - name: product-secret
+          secret:
+            secretName: product-secret

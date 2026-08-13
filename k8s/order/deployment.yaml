@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: microservices
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: order-service
+
+  template:
+    metadata:
+      labels:
+        app: order-service
+
+    spec:
+      containers:
+        - name: order-service
+          image: order-service:1.0
+
+          ports:
+            - containerPort: 8084
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+
+            - name: APP_CONFIG_PATH
+              value: /app/config
+            - name: APP_SECRETS_PATH
+              value: /app/secrets
+
+          volumeMounts:
+            - name: order-config
+              mountPath: /app/config
+
+            - name: order-secret
+              mountPath: /app/secrets
+              readOnly: true
+      volumes:
+        - name: order-config
+          configMap:
+            name: order-config
+
+        - name: order-secret
+          secret:
+            secretName: order-secret
