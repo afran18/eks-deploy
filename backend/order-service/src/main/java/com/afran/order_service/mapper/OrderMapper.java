@@ -6,14 +6,16 @@ import com.afran.order_service.entity.Order;
 import com.afran.order_service.entity.OrderStatus;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class OrderMapper {
 
-    public Order toEntity(CreateOrderRequest request) {
+    public Order toEntity(CreateOrderRequest request, BigDecimal totalAmount) {
         return Order.builder()
                 .userName(request.userName())
                 .productId(request.productId())
-                .totalAmount(request.totalAmount())
+                .totalAmount(totalAmount)
                 .status(OrderStatus.PENDING)
                 .build();
     }

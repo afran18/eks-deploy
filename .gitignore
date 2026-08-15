@@ -15,3 +15,5 @@ Thumbs.db
 /Postgres Queries
 
 **secret.yaml
+
+**/product_service/exception/**

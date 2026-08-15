@@ -1,15 +1,19 @@
 package com.afran.order_service.service;
 
+import com.afran.order_service.client.ProductClient;
 import com.afran.order_service.dto.request.CreateOrderRequest;
 import com.afran.order_service.dto.request.UpdateOrderRequest;
 import com.afran.order_service.dto.response.OrderResponse;
+import com.afran.order_service.dto.response.ProductResponse;
 import com.afran.order_service.entity.Order;
 import com.afran.order_service.entity.OrderStatus;
 import com.afran.order_service.mapper.OrderMapper;
 import com.afran.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,11 +23,33 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final ProductClient productClient;
 
     @Override
     public OrderResponse createOrder(CreateOrderRequest request) {
 
-        Order order = orderMapper.toEntity(request);
+        ProductResponse product;
+
+        try {
+           product = productClient.getProductById(request.productId());
+        } catch (HttpClientErrorException.NotFound e) {
+            throw new RuntimeException("Product not found");
+        }
+
+        if(product.quantity() <= 0) {
+            throw new RuntimeException("Product is out of stock");
+        }
+
+        if(product.quantity() < request.quantity()) {
+            throw new RuntimeException("Insufficient quantity");
+        }
+
+        BigDecimal totalAmount =
+                product.price().multiply(
+                        BigDecimal.valueOf(request.quantity())
+                );
+
+        Order order = orderMapper.toEntity(request, totalAmount);
 
         Order savedOrder = orderRepository.save(order);
 

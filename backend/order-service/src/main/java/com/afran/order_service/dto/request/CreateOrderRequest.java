@@ -15,8 +15,12 @@ public record CreateOrderRequest(
         @NotNull(message = "Product ID is required")
         UUID productId,
 
-        @NotNull(message = "Total amount is required")
-        @Positive(message = "Total amount must be greater than zero")
-        BigDecimal totalAmount
+        @Positive(message = "Quantity must be greater than zero")
+        Integer quantity
 ) {
+        public CreateOrderRequest {
+                if (quantity == null) {
+                        quantity = 1;
+                }
+        }
 }
