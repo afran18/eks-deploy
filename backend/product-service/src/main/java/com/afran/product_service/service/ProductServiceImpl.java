@@ -1,11 +1,15 @@
 package com.afran.product_service.service;
 
 import com.afran.product_service.dto.request.CreateProductRequest;
+import com.afran.product_service.dto.request.ReserveProductRequest;
 import com.afran.product_service.dto.request.UpdateProductRequest;
 import com.afran.product_service.dto.response.ProductResponse;
 import com.afran.product_service.entity.Product;
+import com.afran.product_service.exception.InsufficientQuantityException;
+import com.afran.product_service.exception.OutOfStockException;
 import com.afran.product_service.exception.ProductNotFoundException;
 import com.afran.product_service.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +81,37 @@ public class ProductServiceImpl implements ProductService{
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         productRepository.delete(product);
+    }
+
+    @Override
+    @Transactional
+    public ProductResponse reserveProduct(
+            UUID productId,
+            ReserveProductRequest request
+    ) {
+        int updatedRows = productRepository.reserveQuantity(
+                productId,
+                request.quantity()
+        );
+
+        if (updatedRows == 0) {
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() ->
+                            new ProductNotFoundException("Product does not exist")
+                    );
+            if (product.getQuantity() <= 0) {
+                throw new OutOfStockException("Product is out of stock");
+            }
+            throw new InsufficientQuantityException(
+                    "Insufficient product quantity"
+            );
+        }
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() ->
+                        new ProductNotFoundException("Product does not exist")
+                );
+        return mapToProductResponse(product);
     }
 
     private ProductResponse mapToProductResponse(Product product) {

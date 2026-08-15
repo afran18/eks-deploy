@@ -6,7 +6,7 @@ import com.afran.order_service.dto.request.UpdateOrderRequest;
 import com.afran.order_service.dto.response.OrderResponse;
 import com.afran.order_service.dto.response.ProductResponse;
 import com.afran.order_service.entity.Order;
-import com.afran.order_service.entity.OrderStatus;
+import com.afran.order_service.exception.InsufficientQuantityException;
 import com.afran.order_service.exception.ResourceNotFoundException;
 import com.afran.order_service.mapper.OrderMapper;
 import com.afran.order_service.repository.OrderRepository;
@@ -26,31 +26,59 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final ProductClient productClient;
 
-    @Override
-    public OrderResponse createOrder(CreateOrderRequest request) {
+//    @Override
+//    public OrderResponse createOrder(CreateOrderRequest request) {
+//
+//        ProductResponse product;
+//
+//        try {
+//           product = productClient.getProductById(request.productId());
+//        } catch (HttpClientErrorException.NotFound e) {
+//            throw new ResourceNotFoundException("Product not found");
+//        }
+//
+//        if(product.quantity() <= 0) {
+//            throw new ResourceNotFoundException("Product is out of stock");
+//        }
+//
+//        if(product.quantity() < request.quantity()) {
+//            throw new ResourceNotFoundException("Insufficient quantity");
+//        }
+//
+//        BigDecimal totalAmount =
+//                product.price().multiply(
+//                        BigDecimal.valueOf(request.quantity())
+//                );
+//
+//        Order order = orderMapper.toEntity(request, totalAmount);
+//
+//        Order savedOrder = orderRepository.save(order);
+//
+//        return orderMapper.toResponse(savedOrder);
+//    }
 
-        ProductResponse product;
+    @Override
+    public OrderResponse createOrder(CreateOrderRequest createOrderRequest) {
+        ProductResponse productResponse;
 
         try {
-           product = productClient.getProductById(request.productId());
-        } catch (HttpClientErrorException.NotFound e) {
+            productResponse = productClient.reserveProduct(
+                    createOrderRequest.productId(),
+                    createOrderRequest.quantity()
+            );
+        } catch (HttpClientErrorException.NotFound ex) {
             throw new ResourceNotFoundException("Product not found");
+        } catch (HttpClientErrorException.Conflict ex) {
+            throw new InsufficientQuantityException("Insufficient product quantity");
         }
 
-        if(product.quantity() <= 0) {
-            throw new ResourceNotFoundException("Product is out of stock");
-        }
+        BigDecimal totalAmount = productResponse.price()
+                .multiply(BigDecimal.valueOf(createOrderRequest.quantity())
+        );
 
-        if(product.quantity() < request.quantity()) {
-            throw new ResourceNotFoundException("Insufficient quantity");
-        }
-
-        BigDecimal totalAmount =
-                product.price().multiply(
-                        BigDecimal.valueOf(request.quantity())
-                );
-
-        Order order = orderMapper.toEntity(request, totalAmount);
+        Order order = orderMapper.toEntity(
+                createOrderRequest, totalAmount
+        );
 
         Order savedOrder = orderRepository.save(order);
 
