@@ -4,6 +4,7 @@ import com.afran.product_service.dto.request.CreateProductRequest;
 import com.afran.product_service.dto.request.UpdateProductRequest;
 import com.afran.product_service.dto.response.ProductResponse;
 import com.afran.product_service.entity.Product;
+import com.afran.product_service.exception.ProductNotFoundException;
 import com.afran.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductResponse getProductById(UUID productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product does not exist"));
+                .orElseThrow(() -> new ProductNotFoundException("Product does not exist"));
 
         return mapToProductResponse(product);
     }
