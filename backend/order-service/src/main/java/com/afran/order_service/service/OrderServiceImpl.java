@@ -7,6 +7,7 @@ import com.afran.order_service.dto.response.OrderResponse;
 import com.afran.order_service.dto.response.ProductResponse;
 import com.afran.order_service.entity.Order;
 import com.afran.order_service.entity.OrderStatus;
+import com.afran.order_service.exception.ResourceNotFoundException;
 import com.afran.order_service.mapper.OrderMapper;
 import com.afran.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,15 +34,15 @@ public class OrderServiceImpl implements OrderService {
         try {
            product = productClient.getProductById(request.productId());
         } catch (HttpClientErrorException.NotFound e) {
-            throw new RuntimeException("Product not found");
+            throw new ResourceNotFoundException("Product not found");
         }
 
         if(product.quantity() <= 0) {
-            throw new RuntimeException("Product is out of stock");
+            throw new ResourceNotFoundException("Product is out of stock");
         }
 
         if(product.quantity() < request.quantity()) {
-            throw new RuntimeException("Insufficient quantity");
+            throw new ResourceNotFoundException("Insufficient quantity");
         }
 
         BigDecimal totalAmount =
