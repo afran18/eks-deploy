@@ -2,6 +2,7 @@ package com.afran.product_service.controller;
 
 
 import com.afran.product_service.dto.request.CreateProductRequest;
+import com.afran.product_service.dto.request.ReserveProductRequest;
 import com.afran.product_service.dto.request.UpdateProductRequest;
 import com.afran.product_service.dto.response.ProductResponse;
 import com.afran.product_service.service.ProductService;
@@ -47,6 +48,17 @@ public class ProductController {
         productService.deleteProduct(productId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{productId}/reserve")
+    public ResponseEntity<ProductResponse> reserveProduct(
+            @PathVariable UUID productId,
+            @Valid @RequestBody ReserveProductRequest reserveProductRequest
+            ) {
+
+        return ResponseEntity.ok(
+                productService.reserveProduct(productId, reserveProductRequest)
+        );
     }
 
 

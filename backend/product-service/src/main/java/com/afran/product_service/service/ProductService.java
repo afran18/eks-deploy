@@ -1,6 +1,7 @@
 package com.afran.product_service.service;
 
 import com.afran.product_service.dto.request.CreateProductRequest;
+import com.afran.product_service.dto.request.ReserveProductRequest;
 import com.afran.product_service.dto.request.UpdateProductRequest;
 import com.afran.product_service.dto.response.ProductResponse;
 
@@ -18,4 +19,9 @@ public interface ProductService {
     ProductResponse updateProduct(UUID productId, UpdateProductRequest productRequest);
 
     void deleteProduct(UUID productId);
+
+    ProductResponse reserveProduct(
+            UUID productId,
+            ReserveProductRequest request
+    );
 }

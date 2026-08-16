@@ -32,3 +32,6 @@ data:
         url: ${ORDER_DB_URL}
         username: ${ORDER_DB_USERNAME}
         password: ${ORDER_DB_PASSWORD}
+
+    product-service:
+      url: ${PRODUCT_SERVICE_URL}
