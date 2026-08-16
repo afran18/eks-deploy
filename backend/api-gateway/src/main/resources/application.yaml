@@ -6,7 +6,7 @@ spring:
 
   config:
     import:
-      - optional:file:E:/EKS-Deploy/eks-configs/application-${spring.profiles.active}.yml
-      - file:E:/EKS-Deploy/eks-configs/api-gateway.yml
-      - optional:file:E:/EKS-Deploy/eks-secrets/.env.${spring.profiles.active}[.properties]
-      - optional:file:E:/EKS-Deploy/eks-secrets/api-gateway/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_CONFIG_PATH}/application-${spring.profiles.active}.yml
+      - file:${APP_CONFIG_PATH}/api-gateway.yml
+      - optional:file:${APP_SECRETS_PATH}/.env.${spring.profiles.active}[.properties]
+      - optional:file:${APP_SECRETS_PATH}/api-gateway/.env.${spring.profiles.active}[.properties]

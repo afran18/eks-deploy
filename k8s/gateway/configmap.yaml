@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+  namespace: microservices
+data:
+  application-dev.yml: |
+    management:
+      endpoint:
+        gateway:
+          enabled: true
+      endpoints:
+        web:
+          exposure:
+            include: health,info,gateway
+
+  api-gateway.yml: |
+    spring:
+      cloud:
+        gateway:
+          server:
+            webflux:
+              routes:
+                - id: auth-service
+                  uri: ${AUTH_SERVICE_URL}
+                  predicates:
+                    - Path=/api/v1/auth/**
+                  filters:
+                    - RewritePath=/api/v1/auth/(?<segment>.*), /api/v1/auth/${segment}
+
+                - id: product-service
+                  uri: ${PRODUCT_SERVICE_URL}
+                  predicates:
+                    - Path=/api/v1/products/**
+                  filters:
+                    - RewritePath=/api/v1/products/(?<segment>.*), /api/v1/products/${segment}
+
+                - id: order-service
+                  uri: ${ORDER_SERVICE_URL}
+                  predicates:
+                    - Path=/api/v1/orders/**
+                  filters:
+                    - RewritePath=/api/v1/orders/(?<segment>.*), /api/v1/orders/${segment}

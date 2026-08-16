@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "8ff04c5c-2bd0-4937-a946-9b809ec7d9fa",
     "name": "Microservices - Auth Product Order",
-    "description": "Postman collection for Auth Service, Product Service and Order Service.",
+    "description": "Postman collection for Auth Service, Product Service, Order Service, and the API Gateway routing to all three.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "25899373"
   },
@@ -15,10 +15,7 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -26,15 +23,8 @@
             },
             "url": {
               "raw": "{{authUrl}}/api/v1/auth/register",
-              "host": [
-                "{{authUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "register"
-              ]
+              "host": [ "{{authUrl}}" ],
+              "path": [ "api", "v1", "auth", "register" ]
             }
           },
           "response": []
@@ -61,10 +51,7 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -72,15 +59,8 @@
             },
             "url": {
               "raw": "{{authUrl}}/api/v1/auth/login",
-              "host": [
-                "{{authUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "login"
-              ]
+              "host": [ "{{authUrl}}" ],
+              "path": [ "api", "v1", "auth", "login" ]
             }
           },
           "response": []
@@ -109,14 +89,8 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "body": {
               "mode": "raw",
@@ -124,14 +98,8 @@
             },
             "url": {
               "raw": "{{productUrl}}/api/v1/products",
-              "host": [
-                "{{productUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products"
-              ]
+              "host": [ "{{productUrl}}" ],
+              "path": [ "api", "v1", "products" ]
             }
           },
           "response": []
@@ -141,21 +109,12 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{productUrl}}/api/v1/products",
-              "host": [
-                "{{productUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products"
-              ]
+              "host": [ "{{productUrl}}" ],
+              "path": [ "api", "v1", "products" ]
             }
           },
           "response": []
@@ -165,22 +124,12 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{productUrl}}/api/v1/products/{{productId}}",
-              "host": [
-                "{{productUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "{{productId}}"
-              ]
+              "host": [ "{{productUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
             }
           },
           "response": []
@@ -190,14 +139,8 @@
           "request": {
             "method": "PUT",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "body": {
               "mode": "raw",
@@ -205,15 +148,8 @@
             },
             "url": {
               "raw": "{{productUrl}}/api/v1/products/{{productId}}",
-              "host": [
-                "{{productUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "{{productId}}"
-              ]
+              "host": [ "{{productUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
             }
           },
           "response": []
@@ -223,22 +159,12 @@
           "request": {
             "method": "DELETE",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{productUrl}}/api/v1/products/{{productId}}",
-              "host": [
-                "{{productUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products",
-                "{{productId}}"
-              ]
+              "host": [ "{{productUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
             }
           },
           "response": []
@@ -267,14 +193,8 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "body": {
               "mode": "raw",
@@ -282,14 +202,8 @@
             },
             "url": {
               "raw": "{{orderUrl}}/api/v1/orders",
-              "host": [
-                "{{orderUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders"
-              ]
+              "host": [ "{{orderUrl}}" ],
+              "path": [ "api", "v1", "orders" ]
             }
           },
           "response": []
@@ -299,21 +213,12 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{orderUrl}}/api/v1/orders",
-              "host": [
-                "{{orderUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders"
-              ]
+              "host": [ "{{orderUrl}}" ],
+              "path": [ "api", "v1", "orders" ]
             }
           },
           "response": []
@@ -323,22 +228,12 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{orderUrl}}/api/v1/orders/{{orderId}}",
-              "host": [
-                "{{orderUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders",
-                "{{orderId}}"
-              ]
+              "host": [ "{{orderUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
             }
           },
           "response": []
@@ -348,14 +243,8 @@
           "request": {
             "method": "PUT",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "body": {
               "mode": "raw",
@@ -363,15 +252,8 @@
             },
             "url": {
               "raw": "{{orderUrl}}/api/v1/orders/{{orderId}}",
-              "host": [
-                "{{orderUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders",
-                "{{orderId}}"
-              ]
+              "host": [ "{{orderUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
             }
           },
           "response": []
@@ -381,22 +263,12 @@
           "request": {
             "method": "DELETE",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{orderUrl}}/api/v1/orders/{{orderId}}",
-              "host": [
-                "{{orderUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "orders",
-                "{{orderId}}"
-              ]
+              "host": [ "{{orderUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
             }
           },
           "response": []
@@ -404,17 +276,14 @@
       ]
     },
     {
-      "name": "API Gateway (Parked)",
+      "name": "API Gateway",
       "item": [
         {
           "name": "Auth Register via Gateway",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -422,15 +291,78 @@
             },
             "url": {
               "raw": "{{gatewayUrl}}/api/v1/auth/register",
-              "host": [
-                "{{gatewayUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "register"
-              ]
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "auth", "register" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Auth Login via Gateway",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const json = pm.response.json();",
+                  "    if (json.accessToken) {",
+                  "        pm.collectionVariables.set('accessToken', json.accessToken);",
+                  "        console.log('Access token saved to collection variable.');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/auth/login",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "auth", "login" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product via Gateway",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const json = pm.response.json();",
+                  "    if (json.productId) pm.collectionVariables.set('productId', json.productId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productName\": \"iPhone 16\",\n  \"price\": 69999.99,\n  \"quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/products",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "products" ]
             }
           },
           "response": []
@@ -440,21 +372,161 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{accessToken}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": {
               "raw": "{{gatewayUrl}}/api/v1/products",
-              "host": [
-                "{{gatewayUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "products"
-              ]
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "products" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product By ID via Gateway",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/products/{{productId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product via Gateway",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productName\": \"iPhone 16 Updated\",\n  \"price\": 67999.99,\n  \"quantity\": 15\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/products/{{productId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product via Gateway",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/products/{{productId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order via Gateway",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const json = pm.response.json();",
+                  "    if (json.orderId) pm.collectionVariables.set('orderId', json.orderId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"totalAmount\": 69999.99\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/orders",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "orders" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Orders via Gateway",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/orders",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "orders" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order By ID via Gateway",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/orders/{{orderId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order Status via Gateway",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CONFIRMED\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/orders/{{orderId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order via Gateway",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/v1/orders/{{orderId}}",
+              "host": [ "{{gatewayUrl}}" ],
+              "path": [ "api", "v1", "orders", "{{orderId}}" ]
             }
           },
           "response": []
@@ -463,49 +535,16 @@
     }
   ],
   "variable": [
-    {
-      "key": "authUrl",
-      "value": "http://localhost:8082"
-    },
-    {
-      "key": "productUrl",
-      "value": "http://localhost:8083"
-    },
-    {
-      "key": "orderUrl",
-      "value": "http://localhost:8084"
-    },
-    {
-      "key": "gatewayUrl",
-      "value": "http://localhost:8080"
-    },
-    {
-      "key": "username",
-      "value": "afran"
-    },
-    {
-      "key": "email",
-      "value": "afran@gmail.com"
-    },
-    {
-      "key": "password",
-      "value": "Password@123"
-    },
-    {
-      "key": "accessToken",
-      "value": ""
-    },
-    {
-      "key": "productId",
-      "value": ""
-    },
-    {
-      "key": "orderId",
-      "value": ""
-    },
-    {
-      "key": "userId",
-      "value": ""
-    }
+    { "key": "authUrl", "value": "http://localhost:8082" },
+    { "key": "productUrl", "value": "http://localhost:8083" },
+    { "key": "orderUrl", "value": "http://localhost:8084" },
+    { "key": "gatewayUrl", "value": "http://localhost:8080" },
+    { "key": "username", "value": "afran" },
+    { "key": "email", "value": "afran@gmail.com" },
+    { "key": "password", "value": "Password@123" },
+    { "key": "accessToken", "value": "" },
+    { "key": "productId", "value": "" },
+    { "key": "orderId", "value": "" },
+    { "key": "userId", "value": "" }
   ]
 }

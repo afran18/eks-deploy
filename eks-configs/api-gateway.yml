@@ -1,17 +1,26 @@
 spring:
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: ${AUTH_SERVICE_URL}
-          predicates:
-            - Path=/api/v1/auth/**
-          filters:
-            - RewritePath=/api/v1/auth/(?<segment>.*), /api/v1/auth/${segment}
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: ${AUTH_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/auth/**
+              filters:
+                - RewritePath=/api/v1/auth/(?<segment>.*), /api/v1/auth/${segment}
 
-        - id: product-service
-          uri: ${PRODUCT_SERVICE_URL}
-          predicates:
-            - Path=/api/v1/products/** 
-          filters:
-            - RewritePath=/api/v1/products/(?<segment>.*), /api/v1/products/${segment}
+            - id: product-service
+              uri: ${PRODUCT_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/products/**
+              filters:
+                - RewritePath=/api/v1/products/(?<segment>.*), /api/v1/products/${segment}
+
+            - id: order-service
+              uri: ${ORDER_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/orders/**
+              filters:
+                - RewritePath=/api/v1/orders/(?<segment>.*), /api/v1/orders/${segment}
