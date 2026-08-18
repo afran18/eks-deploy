@@ -24,3 +24,6 @@ spring:
                 - Path=/api/v1/orders/**
               filters:
                 - RewritePath=/api/v1/orders/(?<segment>.*), /api/v1/orders/${segment}
+
+jwt:
+  secret: ${JWT_SECRET}

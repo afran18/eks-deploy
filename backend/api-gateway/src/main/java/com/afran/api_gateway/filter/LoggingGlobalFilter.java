@@ -28,11 +28,19 @@ public class LoggingGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
+        String authorizationHeader =
+                request.getHeaders().getFirst("Authorization");
+
+        String tokenStatus =
+                authorizationHeader != null && authorizationHeader.startsWith("Bearer ")
+                        ? "Token present"
+                        : "Token not present";
+
         log.info(">>> Incoming request: [{}] {} | Query: {} | Headers: {}",
                 request.getMethod(),
                 request.getURI(),
                 request.getQueryParams(),
-                request.getHeaders());
+                tokenStatus);
 
         long start = System.currentTimeMillis();
 
