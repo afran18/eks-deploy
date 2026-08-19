@@ -51,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
         return new AuthResponse(
                 savedUser.getUsername(),
                 savedUser.getEmail(),
-                jwtService.generateToken(savedUser.getUsername()), // JWT Token generated
+                jwtService.generateToken(savedUser.getUserId()), // JWT Token generated
                 LocalDateTime.now()
         );
     }
@@ -77,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
         return new AuthResponse(
                 user.getUsername(),
                 user.getEmail(),
-                jwtService.generateToken(user.getUsername()),
+                jwtService.generateToken(user.getUserId()),
                 LocalDateTime.now()
         );
     }

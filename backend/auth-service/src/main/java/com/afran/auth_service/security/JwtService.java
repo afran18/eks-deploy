@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class JwtService {
         );
     }
 
-    public String generateToken(String username) {
+    public String generateToken(UUID userId) {
         Date now = new Date();
 
         Date expiry = new Date(
@@ -31,14 +32,14 @@ public class JwtService {
         );
 
         return Jwts.builder()
-                .subject(username)
+                .subject(userId.toString())
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public String extractUserId(String token) {
         return extractClaims(token).getSubject();
     }
 
@@ -48,8 +49,8 @@ public class JwtService {
                 .before(new Date());
     }
 
-    public boolean isTokenValid(String token, String username) {
-        return extractUsername(token).equals(username)
+    public boolean isTokenValid(String token, String userId) {
+        return extractUserId(token).equals(userId)
                 && !isTokenExpired(token);
     }
 

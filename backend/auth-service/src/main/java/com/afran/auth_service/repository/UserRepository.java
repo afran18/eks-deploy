@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    Optional<User> findByUserId(UUID userId);
+
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);

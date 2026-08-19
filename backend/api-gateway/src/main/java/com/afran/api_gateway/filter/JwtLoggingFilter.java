@@ -21,7 +21,7 @@ public class JwtLoggingFilter implements GlobalFilter {
                 .cast(Authentication.class)
                 .doOnNext(authentication -> {
                     if(authentication instanceof JwtAuthenticationToken jwtAuthentication) {
-                        String username = jwtAuthentication
+                        String userId = jwtAuthentication
                                 .getToken()
                                 .getSubject();
 
@@ -29,7 +29,7 @@ public class JwtLoggingFilter implements GlobalFilter {
                                 "JWT validated successfully | method={} | path={} | user={}",
                                 exchange.getRequest().getMethod(),
                                 exchange.getRequest().getPath(),
-                                username
+                                userId.substring(0, 8)
                         );
                     }
                 })
